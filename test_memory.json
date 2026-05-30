@@ -1,0 +1,43 @@
+{
+  "messages": [
+    {
+      "timestamp": "2026-04-16T16:14:50.589302",
+      "role": "user",
+      "content": "I really like jazz music",
+      "metadata": {
+        "type": "preference"
+      }
+    },
+    {
+      "timestamp": "2026-04-16T16:14:50.589302",
+      "role": "assistant",
+      "content": "That's great! I'll remember that.",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2026-04-16T16:14:50.589302",
+      "role": "user",
+      "content": "I've been working for 6 hours",
+      "metadata": {
+        "type": "context"
+      }
+    },
+    {
+      "timestamp": "2026-04-16T16:14:50.589302",
+      "role": "assistant",
+      "content": "You should probably take a break soon.",
+      "metadata": {}
+    }
+  ],
+  "user_model": {
+    "preferences": {},
+    "habits": {},
+    "context": {},
+    "contacts": {},
+    "locations": {},
+    "goals": {},
+    "learning": {}
+  },
+  "session_start": "2026-04-16T16:14:50.573290",
+  "interaction_count": 2
+}

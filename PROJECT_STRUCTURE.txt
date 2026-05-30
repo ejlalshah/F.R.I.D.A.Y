@@ -1,0 +1,310 @@
+F.R.I.D.A.Y PROJECT STRUCTURE
+=============================
+
+friday/ (root directory)
+│
+├── friday/ (main Python package)
+│   │
+│   ├── __init__.py
+│   │
+│   ├── config.py ⭐
+│   │   └─ Centralized configuration for entire system
+│   │   └─ API keys, model sizes, thresholds, file paths
+│   │   └─ Customize here to change system behavior
+│   │
+│   ├── logger.py 📝
+│   │   └─ Logging configuration (create this yourself)
+│   │
+│   ├── main.py ⭐ (ENTRY POINT)
+│   │   └─ Start the system: python -m friday.main
+│   │   └─ Initializes logging and starts event loop
+│   │
+│   ├── event_loop.py ⭐
+│   │   └─ Master orchestrator
+│   │   └─ Coordinates all modules
+│   │   └─ Manages state transitions (idle → listening → processing → responding)
+│   │
+│   ├── audio/
+│   │   ├── __init__.py
+│   │   ├── listener.py ⭐
+│   │   │   └─ Microphone input capture
+│   │   │   └─ Ring buffer for audio storage
+│   │   │   └─ Background thread for continuous listening
+│   │   │
+│   │   └── recorder.py 📝
+│   │       └─ Record audio to WAV files (optional, create yourself)
+│   │
+│   ├── wake_word/
+│   │   ├── __init__.py
+│   │   ├── detector.py ⭐
+│   │   │   └─ "Hello Friday" detection using openWakeWord
+│   │   │   └─ Neural network inference (ONNX)
+│   │   │   └─ WakeWordMonitor for callbacks
+│   │   │
+│   │   └── models/
+│   │       └─ hello_friday.onnx (downloaded on first run)
+│   │
+│   ├── speaker_verification/
+│   │   ├── __init__.py
+│   │   ├── verifier.py
+│   │   │   └─ Voice recognition/speaker verification
+│   │   │   └─ Compares user voice to enrolled voice
+│   │   │
+│   │   ├── enrollment.py 📝
+│   │   │   └─ Train on user's voice (create script yourself)
+│   │   │
+│   │   └── embedder.py 📝
+│   │       └─ Extract voice embeddings (create yourself)
+│   │
+│   ├── speech/
+│   │   ├── __init__.py
+│   │   ├── stt.py ⭐
+│   │   │   └─ Speech-to-text using Whisper
+│   │   │   └─ Converts audio to text
+│   │   │   └─ Runs locally, offline capable
+│   │   │
+│   │   └── tts.py ⭐
+│   │       └─ Text-to-speech using Piper
+│   │       └─ Converts response text to spoken audio
+│   │       └─ Fast generation (1-2 seconds)
+│   │
+│   ├── brain/
+│   │   ├── __init__.py
+│   │   ├── processor.py ⭐
+│   │   │   └─ AI brain using Claude API
+│   │   │   └─ Intent understanding
+│   │   │   └─ Tool planning and execution
+│   │   │   └─ Multi-turn conversation support
+│   │   │
+│   │   └── context.py
+│   │       └─ Conversation memory management
+│   │       └─ Remembers recent conversation turns
+│   │       └─ Enables context-aware responses
+│   │
+│   ├── control/
+│   │   ├── __init__.py
+│   │   ├── executor.py ⭐
+│   │   │   └─ Safe command execution
+│   │   │   └─ Tool execution dispatcher
+│   │   │   └─ Implementation of all system tools
+│   │   │
+│   │   ├── sandbox.py
+│   │   │   └─ Security validation
+│   │   │   └─ Whitelist checking
+│   │   │   └─ Path validation
+│   │   │
+│   │   └── system_tools.py 📝
+│   │       └─ System-level tool implementations (create yourself)
+│   │
+│   ├── output/
+│   │   ├── __init__.py
+│   │   ├── speaker.py ⭐
+│   │   │   └─ Audio playback
+│   │   │   └─ Handles TTS and speaker output
+│   │   │
+│   │   └── visual_feedback.py 📝
+│   │       └─ Status indicators (LEDs, GUI, etc.) (create yourself)
+│   │
+│   └── models/
+│       └── cache/
+│           └─ Downloaded model files (Whisper, Piper, embeddings)
+│
+├── scripts/
+│   ├── test_audio.py 📝
+│   │   └─ Test microphone and audio input
+│   │   └─ Debug audio issues
+│   │
+│   ├── enroll_speaker.py 📝
+│   │   └─ Train voice recognition on your voice
+│   │   └─ Create voice embeddings
+│   │
+│   ├── download_models.py 📝
+│   │   └─ Pre-download all required models
+│   │   └─ Run before first use to avoid long startup
+│   │
+│   └── (your custom scripts)
+│       └─ Create custom Python scripts here
+│       └─ F.R.I.D.A.Y can execute them
+│
+├── docs/
+│   ├── ARCHITECTURE.md ⭐
+│   │   └─ Deep-dive into system design
+│   │   └─ Explains how each component works
+│   │   └─ Data flow and performance characteristics
+│   │
+│   ├── API_REFERENCE.md 📝
+│   │   └─ How to extend the system
+│   │   └─ Adding new tools and capabilities
+│   │
+│   └── TROUBLESHOOTING.md 📝
+│       └─ Common issues and solutions
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_audio.py 📝
+│   ├── test_wake_word.py 📝
+│   ├── test_stt.py 📝
+│   └── test_brain.py 📝
+│       └─ Unit tests (create yourself)
+│
+├── startup_scripts/
+│   ├── windows_startup.bat 📝
+│   │   └─ Batch script for Windows Task Scheduler
+│   │
+│   ├── friday_service.xml 📝
+│   │   └─ Task Scheduler configuration
+│   │
+│   └── linux_systemd.service 📝
+│       └─ Systemd service file for Linux
+│
+├── logs/
+│   └─ (auto-created)
+│       └─ friday_TIMESTAMP.log files
+│       └─ Debugging and auditing
+│
+├── data/
+│   └── enrollment/
+│       └─ (auto-created)
+│           └─ Speaker voice embeddings
+│           └─ Used for voice recognition
+│
+├── .env.example ⭐
+│   └─ Environment variable template
+│   └─ Copy to .env and add your API key
+│
+├── .env 📝
+│   └─ Your actual API keys (NEVER commit this!)
+│
+├── requirements.txt ⭐
+│   └─ Python dependencies
+│   └─ Install with: pip install -r requirements.txt
+│
+├── SETUP.md ⭐
+│   └─ Complete installation guide
+│   └─ Step-by-step instructions
+│   └─ Troubleshooting tips
+│
+├── QUICK_START.md ⭐
+│   └─ Quick reference guide
+│   └─ Common commands and customizations
+│   └─ Configuration shortcuts
+│
+├── IMPLEMENTATION_SUMMARY.md ⭐
+│   └─ High-level overview of everything
+│   └─ Design decisions explained
+│   └─ What to do next
+│
+└── README.md 📝
+    └─ Project overview (create yourself)
+
+
+LEGEND
+======
+⭐ = Fully implemented, ready to use
+📝 = Template or skeleton, create yourself
+→ = Module relationship/dependency
+
+
+KEY FILES TO READ FIRST
+=======================
+1. SETUP.md - Installation instructions (30 min read)
+2. QUICK_START.md - Quick reference (10 min read)
+3. docs/ARCHITECTURE.md - How it works (60 min read)
+4. friday/config.py - Customize behavior (15 min read)
+5. friday/main.py - Entry point (10 min read)
+6. friday/event_loop.py - Core orchestration (30 min read)
+
+
+WORKFLOW TO START
+=================
+1. Copy .env.example → .env
+2. Add Claude API key to .env
+3. Run: python -m friday.main
+4. Say "Hello Friday"
+5. Give a command
+
+
+DEBUGGING
+=========
+Enable detailed logging: DEBUG_MODE=true in .env
+Check logs in logs/ folder
+Run test scripts in scripts/ directory
+
+
+FILES YOU NEED TO CREATE
+========================
+These are utilities and tests referenced above:
+
+scripts/test_audio.py
+- Tests microphone and audio capture
+- Shows audio levels
+- Helps debug audio issues
+
+scripts/enroll_speaker.py
+- Records your voice for speaker verification
+- Creates voice embeddings
+- Run once to enable voice recognition
+
+scripts/download_models.py
+- Pre-downloads Whisper, Piper, and embedding models
+- Optional but recommended
+- Avoids long wait on first startup
+
+tests/test_*.py
+- Unit tests for each module
+- Useful for development and debugging
+- Run with: pytest
+
+docs/API_REFERENCE.md
+- How to extend F.R.I.D.A.Y
+- Adding custom tools
+- Creating new capabilities
+
+startup_scripts/
+- Windows Task Scheduler XML
+- Linux systemd service file
+- Optional for autostart on boot
+
+README.md
+- Project overview
+- Feature highlights
+- Links to documentation
+
+
+CUSTOMIZATION CHECKLIST
+=======================
+☐ Read SETUP.md (20 min)
+☐ Install dependencies (5 min)
+☐ Get Claude API key (2 min)
+☐ Run initial startup (1 min)
+☐ Test with voice commands (5 min)
+☐ Read QUICK_START.md (10 min)
+☐ Customize config.py settings (10 min)
+☐ Add applications to ALLOWED_APPLICATIONS (5 min)
+☐ Edit SYSTEM_PROMPT for personality (5 min)
+☐ Set up Windows autostart (optional, 10 min)
+☐ Read ARCHITECTURE.md for deep understanding (60 min)
+
+
+NEXT STEPS BY EXPERIENCE LEVEL
+==============================
+
+Beginner:
+- Follow SETUP.md exactly
+- Run scripts/test_audio.py
+- Try basic voice commands
+- Read QUICK_START.md
+
+Intermediate:
+- Customize config.py settings
+- Add new applications
+- Explore the source code
+- Create simple Python scripts for F.R.I.D.A.Y to execute
+
+Advanced:
+- Add custom tools to executor.py
+- Integrate with external APIs
+- Train custom wake word models
+- Explore local LLM alternatives (Ollama)
+- Optimize for specific hardware
+

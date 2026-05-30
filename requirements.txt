@@ -1,0 +1,38 @@
+
+# Audio Processing & Speech Recognition
+sounddevice==0.4.6          # Microphone input
+numpy==1.26.4               # Audio array operations
+scipy==1.11.2               # Audio filtering and WAV file handling
+librosa==0.10.0             # Advanced audio analysis
+
+# Speech-to-Text
+openai-whisper    # Speech recognition (local, offline)
+
+# Text-to-Speech
+# piper-tts==1.2.0            # Fast offline text-to-speech
+pyttsx3
+
+# Wake Word Detection
+openwakeword==0.5.1         # Wake word detection (local, offline)
+onnxruntime==1.18.0         # Neural network inference
+
+# Speaker Verification (voice recognition)
+speechbrain==0.5.15         # Speaker embedding models
+scikit-learn==1.3.1         # Similarity scoring
+
+# AI/LLM
+anthropic==0.25.7           # Claude API client
+
+# System & Configuration
+python-dotenv==1.0.0        # Load .env environment variables
+psutil==5.9.5               # System information
+
+# Automation
+pyautogui==0.9.53           # Keyboard/mouse control (optional)
+
+# Development & Testing
+pytest==7.4.0               # Testing framework
+pytest-cov==4.1.0           # Test coverage
+
+# Utilities
+requests==2.31.0            # HTTP requests
